@@ -27,7 +27,7 @@ public class SLMS {
 	
 	private void runSim() {
 		
-		//TODO class is incomplete needs to be fully implemented
+		//TODO class is incomplete needs to be fully implemented.
 		
 		while(!pQueue.isEmpty() || currentTime >= nextEvent) {
 			
