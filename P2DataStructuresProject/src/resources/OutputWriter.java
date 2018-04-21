@@ -12,14 +12,16 @@ import java.util.Scanner;
 public class OutputWriter {
 
 	private static ArrayList<String> correctFileNames;
+	private static ArrayList<Customer> customerList;
 	
 	public OutputWriter(){
 		correctFileNames = new ArrayList<String>();
+		customerList = new ArrayList<Customer>();
 	}
 	
 	public static void verifyInputFile(String fileName) {
 		try {
-			ArrayList<Float> list = new ArrayList<Float>();
+			ArrayList<Integer> list = new ArrayList<Integer>();
 			File f = new File(fileName);
 			
 			if(!f.exists()) {
@@ -34,13 +36,13 @@ public class OutputWriter {
 					counter = 1;
 				while(sc.hasNext()) {					
 					
-					if(!sc.hasNextFloat()) {
+					if(!sc.hasNextInt()) {
 						
 						counter = 1;
 						break;
 					}					
 					//verify
-					Float current = sc.nextFloat();
+					int current = sc.nextInt();
 					list.add(current);
 					
 					counter++;					
@@ -53,6 +55,11 @@ public class OutputWriter {
 				//Print for testing
 				 else { 
 					System.out.println("File is correct.");
+					//Adding the info the a customer list
+					for(int i = 0; i<list.size(); i = i+2) {
+						customerList.add(new Customer(list.get(i),list.get(i+1)));
+					}
+					
 					//Ends testing print
 					correctFileNames.add(fileName);
 					
@@ -148,6 +155,10 @@ public class OutputWriter {
 	
 	public ArrayList<String> getFileList(){
 		return correctFileNames;
+	}
+	
+	public ArrayList<Customer> getCustomerList(){
+		return customerList;
 	}
 	
 }

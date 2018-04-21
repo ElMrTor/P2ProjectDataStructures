@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
+import policies.SLMS;
 import resources.Customer;
 import resources.OutputWriter;
 
@@ -30,26 +31,31 @@ public class Main {
 		
 		
 		//Testing el reading de dataFiles
-		try {
-			File f = new File("inputFiles/dataFiles.txt");
-			Scanner sc = new Scanner(f);
-			sc.useDelimiter("[\r\n]");
-			while(sc.hasNext())
-				OutputWriter.verifyInputFile(changeToFolderPath(sc.next()));
-			
-			sc.close();
-			
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
+//		try {
+//			File f = new File("inputFiles/dataFiles.txt");
+//			Scanner sc = new Scanner(f);
+//			sc.useDelimiter("[\r\n]");
+//			while(sc.hasNext())
+//				OutputWriter.verifyInputFile(changeToFolderPath(sc.next()));
+//			
+//			sc.close();
+//			
+//		}
+//		catch(Exception e) {
+//			System.out.println(e);
+//		}
 		
 		
 		
 		
-//		//Caso 1 --> correct
-//		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
-//		System.out.println("Caso 1");
+		//Caso 1 --> correct
+		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
+		System.out.println("Caso 1");
+		
+		SLMS poly = new SLMS(oW.getCustomerList(), 1);
+		poly.printList();
+		
+		
 //		
 //		//Caso 2 --> bad format letters
 //		OutputWriter.verifyInputFile("inputFiles/data_2.txt");
