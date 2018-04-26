@@ -13,10 +13,13 @@ public class OutputWriter {
 
 	private static ArrayList<String> correctFileNames;
 	private static ArrayList<Customer> customerList;
+	private static boolean correctFormat;
+	private static String correctOutput = "Number of customers: ";
 	
 	public OutputWriter(){
 		correctFileNames = new ArrayList<String>();
 		customerList = new ArrayList<Customer>();
+		correctFormat = false;
 	}
 	
 	public static void verifyInputFile(String fileName) {
@@ -55,10 +58,13 @@ public class OutputWriter {
 				//Print for testing
 				 else { 
 					System.out.println("File is correct.");
+					correctFormat = true;
 					//Adding the info the a customer list
 					for(int i = 0; i<list.size(); i = i+2) {
 						customerList.add(new Customer(list.get(i),list.get(i+1)));
 					}
+					
+					correctOutput = correctOutput.concat( ""+customerList.size());
 					
 					//Ends testing print
 					correctFileNames.add(fileName);
@@ -159,6 +165,10 @@ public class OutputWriter {
 	
 	public ArrayList<Customer> getCustomerList(){
 		return customerList;
+	}
+	
+	public boolean isCorrectFormat() {
+		return correctFormat;
 	}
 	
 }

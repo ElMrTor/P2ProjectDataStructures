@@ -22,12 +22,25 @@ public class Customer implements Comparable<Customer> {
 		return requestedTime;
 	}
 	public void setFinishedTime(int time) {
-		timeFinished = time;
+		timeFinished = time + requestedTime;
 	}
 	
 	public void setWaitTime(int time) {
-		waitTime = time;
+		if(time - getArrival() <= 0)
+			waitTime = 0;
+		else
+		waitTime = time - getArrival();
 	}
+	
+	public int getTimeOfEnd() {
+		return timeFinished;
+	}
+	
+	public int getWaitTime() {
+		return waitTime;
+	}
+	
+	
 
 	@Override
 	public int compareTo(Customer otherCustomer) {

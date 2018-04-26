@@ -5,41 +5,47 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import resources.Customer;
+import resources.Server;
 
 public class SLMS {
 
 	private int currentTime;
 	private int nextEvent;
 	private int numberOfServers;
-	private int[] allCustomerWaitingTimes;
-	private Queue<Customer> customerQueue;
-	private PriorityQueue<Customer> pQueue;	
+	private Server[] serverList;
+	private PriorityQueue<Customer> pQueue;
+	private ArrayList<Customer> attendedCustomers;
+	
+	
 	public SLMS(ArrayList<Customer> cList, int server) {
 
 		pQueue = new PriorityQueue<Customer>();
+		attendedCustomers = new ArrayList<Customer>();
 		
 		pQueue.addAll(cList);
-		allCustomerWaitingTimes = new int[pQueue.size()];
 		nextEvent = 0;
 		currentTime = 0;
 		numberOfServers = server;
+		serverList = new Server[numberOfServers];
+		for(int i = 0; i < numberOfServers; i++) {
+			serverList[i] = new Server();
+		}
+		
+		runSim();
+		printResults();
 	}
 	
 	private void runSim() {
 		
 		//TODO class is incomplete needs to be fully implemented.
-		
-		while(!pQueue.isEmpty() || currentTime >= nextEvent) {
+		while((!pQueue.isEmpty() || currentTime <= nextEvent) && currentTime < 1000) {
 			
-			if(currentTime == pQueue.peek().getArrival()) {
-				pQueue.peek().setWaitTime(currentTime - pQueue.peek().getArrival());
-			}
-			
-			
-			
+			verifyCompletedTask();
+			verifyServiceStart();
 			
 			currentTime++;
 		}
+		
 		
 	}
 	
@@ -48,6 +54,43 @@ public class SLMS {
 		while(!pQueue.isEmpty())
 			System.out.println("Arrival Time: " + pQueue.peek().getArrival() + " Requested Time: " + pQueue.remove().getRequest());
 
+	}
+	
+	private void verifyCompletedTask() {
+		for(Server s: serverList) {
+			if(s.isAttending() && currentTime == s.getCustomer().getTimeOfEnd()) {
+				attendedCustomers.add(s.getCustomer());
+				s.finishedAttending();
+			}
+		}
+	}
+	
+	private void verifyServiceStart() {
+		
+		for(Server s: serverList) {
+			if(!pQueue.isEmpty()) {
+				if(!s.isAttending() && pQueue.peek().getArrival() <= currentTime) {
+					s.setCustomer(pQueue.poll());
+					s.getCustomer().setWaitTime(currentTime);
+					s.getCustomer().setFinishedTime(currentTime);
+					if(s.getCustomer().getTimeOfEnd() > nextEvent)
+						nextEvent = s.getCustomer().getTimeOfEnd();
+				}
+			}
+		}		
+	}
+	
+	private void printResults() {
+		System.out.println("Arrival Request End Wait");
+		for(Customer c : attendedCustomers) {
+			
+			System.out.println(c.getArrival() + " " + c.getRequest() + " " + c.getTimeOfEnd() + " " + c.getWaitTime());
+		}
+//		attendedCustomers = null;
+//		pQueue = null;
+//		attendedCustomers = new ArrayList<Customer>();
+//		pQueue = new PriorityQueue<Customer>();
+		
 	}
 	
 }

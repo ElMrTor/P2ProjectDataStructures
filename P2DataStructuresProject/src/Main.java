@@ -18,15 +18,26 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		oW = new OutputWriter();
+
+		
 		servers = new int[args.length];
+		
+		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
+
+		
 		
 		for(int i = 0; i < args.length; i++) {
 			//TODO do the loop with every server
 			servers[i] = Integer.parseInt(args[i]);
 			
+			if(oW.isCorrectFormat()) {
+			SLMS line = new SLMS(oW.getCustomerList(), servers[i]);
+			}
+			
 		}
 
-		oW = new OutputWriter();
+//		oW = new OutputWriter();
 		//Testing OutputClass
 		
 		
@@ -49,12 +60,12 @@ public class Main {
 		
 		
 		//Caso 1 --> correct
-		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
-		System.out.println("Caso 1");
-		
-		SLMS poly = new SLMS(oW.getCustomerList(), 1);
-		poly.printList();
-		
+//		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
+//		System.out.println("Caso 1");
+//		
+//		SLMS poly = new SLMS(oW.getCustomerList(), 2);
+//		poly.printList();
+//		
 		
 //		
 //		//Caso 2 --> bad format letters
