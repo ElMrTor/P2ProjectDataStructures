@@ -18,12 +18,11 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		oW = new OutputWriter();
+//		oW = new OutputWriter();
 
 		
 		servers = new int[args.length];
 		
-		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
 
 		
 		
@@ -31,11 +30,15 @@ public class Main {
 			//TODO do the loop with every server
 			servers[i] = Integer.parseInt(args[i]);
 			
-			if(oW.isCorrectFormat()) {
-			SLMS line = new SLMS(oW.getCustomerList(), servers[i]);
-			}
+//			if(oW.isCorrectFormat()) {
+//			SLMS line = new SLMS(oW.getCustomerList(), servers[i]);
+//			}
 			
 		}
+		
+		oW = new OutputWriter(servers);
+		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
+
 
 //		oW = new OutputWriter();
 		//Testing OutputClass

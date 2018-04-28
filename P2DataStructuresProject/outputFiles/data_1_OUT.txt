@@ -1,0 +1,19 @@
+Number of customers: 6
+
+SLMS 1: 174 52.17 m
+
+SLMS 2: 93 9.50 m
+
+SLMS 3: 81 0.00 m
+
+SLMS 4: 81 0.00 m
+
+SLMS 5: 81 0.00 m
+
+SLMS 6: 81 0.00 m
+
+SLMS 7: 81 0.00 m
+
+SLMS 8: 81 0.00 m
+
+SLMS 9: 81 0.00 m

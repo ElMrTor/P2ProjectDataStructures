@@ -15,8 +15,10 @@ public class OutputWriter {
 	private static ArrayList<Customer> customerList;
 	private static boolean correctFormat;
 	private static String correctOutput = "Number of customers: ";
+	private static int[] argumentsArr;
 	
-	public OutputWriter(){
+	public OutputWriter(int[] args){
+		argumentsArr = args;
 		correctFileNames = new ArrayList<String>();
 		customerList = new ArrayList<Customer>();
 		correctFormat = false;
@@ -65,7 +67,9 @@ public class OutputWriter {
 					}
 					
 					correctOutput = correctOutput.concat( ""+customerList.size());
-					
+					PolicyManager manager = new PolicyManager(argumentsArr, customerList);
+					//Verify if it works.
+					writeToFileCase(fileName, manager.processData());
 					//Ends testing print
 					correctFileNames.add(fileName);
 					
@@ -126,9 +130,7 @@ public class OutputWriter {
 		}
 	}
 	
-	//Still working on implementation
-	public static void writeToFileCase(String fileName, String[] toPrint) {
-		//TODO implement code
+	public static void writeToFileCase(String fileName, ArrayList<String> toPrint) {
 		try {
 			String newOut = changeToOutput(fileName);
 			Path p = Paths.get(newOut);
@@ -137,15 +139,16 @@ public class OutputWriter {
 				Files.createFile(p);
 			PrintWriter pw = new PrintWriter(newOut);
 			
-			for(int i = 0;i < toPrint.length; i++) {
-				pw.println(toPrint[i]);
-			} 	
+			
+			for(String s: toPrint) {
+				pw.println(s);
+			}
 		
 			pw.close();
 		
 		}
 		catch(Exception e) {
-			//TODO
+			//TODO fix the catch exception
 			System.out.println(e);
 			System.out.println("**********Error en el writeToFileCase**************");
 		}
@@ -170,5 +173,7 @@ public class OutputWriter {
 	public boolean isCorrectFormat() {
 		return correctFormat;
 	}
+	
+	
 	
 }

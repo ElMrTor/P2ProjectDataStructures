@@ -93,4 +93,24 @@ public class SLMS {
 		
 	}
 	
+//	TODO Metodo que me va a dar el string de cada estrategia con su servers para juntarse al ultimo file 
+	public String getValues() {
+		String str = "\nSLMS " + numberOfServers + ": " + nextEvent + " " + String.format("%.2f", getAverageWaitingTime()) + " m"   ;
+		return str;
+	}
+	
+	private float getAverageWaitingTime() {
+		
+		float vtr = 0;
+		
+		for(Customer c: attendedCustomers) {
+			vtr += c.getWaitTime();
+		}
+		
+		vtr = vtr/attendedCustomers.size();
+		
+		return vtr;
+	}
+	
+	
 }
