@@ -1,1 +1,7 @@
-Input file does not meet the expected format or it is empty
+Number of customers: 19
+SLMS 1: 1011 383.39 0.00
+SLMS 3: 375 98.42 0.00
+SLMS 5: 257 41.26 0.00
+MLMS 1: 0 NaN 0.0
+MLMS 3: 0 NaN 0.0
+MLMS 5: 0 NaN 0.0

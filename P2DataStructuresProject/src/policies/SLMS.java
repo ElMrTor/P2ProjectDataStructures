@@ -48,6 +48,7 @@ public class SLMS {
 		
 	}
 	
+	//TODO Unneeded method
 	public void printList() {
 
 		while(!pQueue.isEmpty())
@@ -93,21 +94,18 @@ public class SLMS {
 	}
 	
 //	TODO Metodo que me va a dar el string de cada estrategia con su servers para juntarse al ultimo file 
+	// Verificar la m para ver si se le da un procedimiento que de 0, pero en este caso siempre da 0.
 	public String getValues() {
-		String str = "\nSLMS " + numberOfServers + ": " + nextEvent + " " + String.format("%.2f", getAverageWaitingTime()) + " m"   ;
+		String str = "SLMS " + numberOfServers + ": " + nextEvent + " " + String.format("%.2f", getAverageWaitingTime()) + " 0.00"   ;
 		return str;
 	}
 	
-	private float getAverageWaitingTime() {
-		
-		float vtr = 0;
-		
+	private float getAverageWaitingTime() {		
+		float vtr = 0;		
 		for(Customer c: attendedCustomers) {
 			vtr += c.getWaitTime();
-		}
-		
-		vtr = vtr/attendedCustomers.size();
-		
+		}		
+		vtr = vtr/attendedCustomers.size();		
 		return vtr;
 	}
 	

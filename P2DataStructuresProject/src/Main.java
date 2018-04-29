@@ -37,8 +37,10 @@ public class Main {
 		}
 		
 		oW = new OutputWriter(servers);
-		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
+//		OutputWriter.verifyInputFile("inputFiles/data_1.txt");
+		OutputWriter.verifyInputFile("inputFiles/data_3.txt");
 
+		
 
 //		oW = new OutputWriter();
 		//Testing OutputClass
@@ -99,48 +101,48 @@ public class Main {
 	}
 	
 	
-	public static void readFiles() {
-		allCustomers = new ArrayList<Customer>();
-		File dataText = new File("inputFiles/dataFiles.txt");
-		try {
-			sc = new Scanner(dataText);
-			sc.useDelimiter("[\n\r]");
-			while(sc.hasNextLine()) {
-				
-				
-				
-				
-			}
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private static void validateFile(String filePath) {
-		try {
-			File current = new File(filePath);
-			Scanner sc = new Scanner(current);
-//			if(sc.hasNext()) ||  {
-//				//tirar el file con
+//	public static void readFiles() {
+//		allCustomers = new ArrayList<Customer>();
+//		File dataText = new File("inputFiles/dataFiles.txt");
+//		try {
+//			sc = new Scanner(dataText);
+//			sc.useDelimiter("[\n\r]");
+//			while(sc.hasNextLine()) {
+//				
+//				
+//				
+//				
 //			}
-			
-			
-		}
-		catch(Exception e) {
-			//Tirar el file diciendo que no existe
-		}
-	}
-
-	
-	private static void writeFiles() {
-		
-	}
-	
-	private static String changeToFolderPath(String fileName) {
-		String str = "inputFiles/";
-		return str.concat(fileName);
-	}
+//			
+//			
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	private static void validateFile(String filePath) {
+//		try {
+//			File current = new File(filePath);
+//			Scanner sc = new Scanner(current);
+////			if(sc.hasNext()) ||  {
+////				//tirar el file con
+////			}
+//			
+//			
+//		}
+//		catch(Exception e) {
+//			//Tirar el file diciendo que no existe
+//		}
+//	}
+//
+//	
+//	private static void writeFiles() {
+//		
+//	}
+//	
+//	private static String changeToFolderPath(String fileName) {
+//		String str = "inputFiles/";
+//		return str.concat(fileName);
+//	}
 	
 }

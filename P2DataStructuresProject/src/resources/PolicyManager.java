@@ -3,6 +3,7 @@ package resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import policies.MLMS;
 import policies.SLMS;
 
 public class PolicyManager {
@@ -26,15 +27,13 @@ public class PolicyManager {
 	public ArrayList<String> processData() {
 	
 		for(int i = 0; i < arguments.length; i++) {
-			System.out.println("policymanager is running" + arguments[i]);
 			SLMS serv = new SLMS(cList, arguments[i]);
-			toWrite.add(serv.getValues());
-//			toWrite = toWrite.concat("\n");
-//			toWrite = toWrite.concat(serv.getValues());			
-		}
+			toWrite.add(serv.getValues());		
+		}		
 		
 		for(int i = 0; i < arguments.length; i++) {
-//			TODO Hacer lo mismo que arriba con cada policy			
+			MLMS serv = new MLMS(cList, arguments[i]);
+			toWrite.add(serv.getValue());
 		}
 		
 		for(int i = 0; i < arguments.length; i++) {
@@ -46,7 +45,7 @@ public class PolicyManager {
 		}
 		
 //		TODO Devolver el string creado con todas las estrategias
-		System.out.println("It ran");
+		
 		System.out.println(toWrite);
 		return toWrite;	
 	

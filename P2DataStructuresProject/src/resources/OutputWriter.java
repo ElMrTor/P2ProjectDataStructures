@@ -82,6 +82,8 @@ public class OutputWriter {
 		catch(Exception e) {
 			System.out.println("Error identifying the input file");
 			System.out.println(e);
+			//TODO erase
+			e.printStackTrace();
 
 		}		
 		
@@ -107,6 +109,8 @@ public class OutputWriter {
 		} catch (Exception e) {
 			System.out.println("Error in static printing class: Not Existing Case");
 			System.out.println(e);
+			//TODO erase
+			e.printStackTrace();
 		}
 	}
 	
@@ -127,6 +131,8 @@ public class OutputWriter {
 		}
 		catch(Exception e) {
 			System.out.println("Error in static printing class: Incorrect Case");
+			//TODO erase
+			e.printStackTrace();
 		}
 	}
 	
@@ -151,6 +157,9 @@ public class OutputWriter {
 			//TODO fix the catch exception
 			System.out.println(e);
 			System.out.println("**********Error en el writeToFileCase**************");
+		//TODO erase
+			e.printStackTrace();
+		
 		}
 	}
 
