@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import policies.MLMS;
+import policies.MLMSBLL;
+import policies.MLMSBWT;
 import policies.SLMS;
 
 public class PolicyManager {
@@ -37,11 +39,13 @@ public class PolicyManager {
 		}
 		
 		for(int i = 0; i < arguments.length; i++) {
-//			TODO Hacer lo mismo que arriba con todos los policies para conseguir el string
+			MLMSBLL serv = new MLMSBLL(cList, arguments[i]);
+			toWrite.add(serv.getValue());
 		}
 		
 		for(int i = 0; i < arguments.length; i++) {
-//			TODO Hacer lo mismo que arriba para conseguir el string
+			MLMSBWT serv = new MLMSBWT(cList, arguments[i]);
+			toWrite.add(serv.getValue());
 		}
 		
 //		TODO Devolver el string creado con todas las estrategias

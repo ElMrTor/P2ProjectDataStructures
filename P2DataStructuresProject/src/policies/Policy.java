@@ -1,5 +1,6 @@
 package policies;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -17,6 +18,7 @@ public abstract class Policy {
 	private boolean lineChange;
 	private String policyName;
 	private float averageAttendedCustomer;
+	public LinkedList<Customer>[] serverListNumber;
 	
 	protected void runSim() {
 		while((!pQueue.isEmpty() || currentTime <= nextEvent)) {
@@ -44,21 +46,44 @@ public abstract class Policy {
 		
 	}
 	
+//	public String getValue() {
+//		String str = getPolicyName() + " " + getServers() + ": " + "" + getNextEvent() + " " + String.format("%.2f", getAverageWaitingTime()) + " " + getAverageAttendedCustomer();
+//		return str;
+//	}
+	
+	
 	public String getValue() {
-		System.out.println("GetValueStart" + getNextEvent());
-		String str = getPolicyName() + " " + getServers() + ": " + "" + getNextEvent() + " " + String.format("%.2f", getAverageWaitingTime()) + " " + getAverageAttendedCustomer();
-		System.out.println("GetValueENd");
+		if(getServers() == 1)
+			setAverageAttendedCustomer(0);
+		String str = getPolicyName() + " " + getServers() + ": " + "" + getNextEvent() + " " + String.format("%.2f", getAverageWaitingTime()) + " " + String.format("%.2f", calculateAverageAttendedPersonBeforeAnother());
 		return str;
 	}
 	
 	public float getAverageWaitingTime() {
 		float vtr = 0;
 		for(Customer c: attendedCustomers) {
-			vtr =+ c.getWaitTime();
+			vtr += c.getWaitTime();
 		}
 		vtr = vtr / attendedCustomers.size();
 		return vtr;
 	}
+	
+	public float calculateAverageAttendedPersonBeforeAnother() {
+			
+			float ntr = getAverageAttendedCustomer()/getAttendedCustomerList().size();
+			
+			return ntr;
+		}
+	
+	//Verify if any attendedCustomer is receiving service before someone who arrived earlier
+		public void verifyIfCustomerIsAttendedBefore(Server s) {
+			for(int i = 0; i<serverListNumber.length; i++) {
+				if(!serverListNumber[i].isEmpty()) {
+					if(s.getCustomer().getArrival() > serverListNumber[i].getFirst().getArrival())
+						setAverageAttendedCustomer(getAverageAttendedCustomer() + 1);
+				}
+			}
+		}
 	
 	//Getters and Setters
 	public int getCurrentTime() {

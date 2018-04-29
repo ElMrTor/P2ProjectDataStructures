@@ -11,8 +11,8 @@ import resources.Server;
 
 public class MLMS extends Policy {
 	
-	private LinkedList<Customer> lLCustomer;
-	private LinkedList<Customer>[] serverListNumber;
+	public LinkedList<Customer> lLCustomer;
+	
 	
 	public MLMS(ArrayList<Customer> cList, int server) {
 		serverListNumber = new LinkedList[server];
@@ -35,38 +35,53 @@ public class MLMS extends Policy {
 		}
 		
 		
-		//Testing
-		setAverageAttendedCustomer(0);
-		//Testing
+		
 		
 		runSim();
+		
+//		System.out.println("The size of the attended customer list is: " + getAttendedCustomerList().size());
+	
+		for(Customer c: getAttendedCustomerList())
+			System.out.println(c.getWaitTime());
 		
 	}
 	
 	@Override
 	protected void runSim() {
-		while(!areLinesEmpty() || getCurrentTime() <= getNextEvent()) {
+		
+		
+		while(!areLinesEmpty() || getCurrentTime() <= getNextEvent() || !lLCustomer.isEmpty()) {
 			verifyCompletedTask();
 			if(canChangeLine()) {
 				doLineChange();
 			}
 			verifyServiceStart();
 			setCurrentTime(getCurrentTime() + 1);
+			
+			
 		}
 	}
+	
+
 	
 	@Override
 	public void doLineChange() {
 		
-//		int minSize = getMinimunLine();
-		
-		
-		while(!lLCustomer.isEmpty() && lLCustomer.getFirst().getArrival() <= getCurrentTime()) {
+	
+		while(!lLCustomer.isEmpty() && lLCustomer.getFirst().getArrival() <= getCurrentTime() ) {
+			//TODO erase
+//			System.out.println("It entered the while loop");
+			//TODO erase
 			int minSize = getMinimunLine();
-			for(int i = 0; i < serverListNumber.length; i++) {
-				if(serverListNumber[i].size() == minSize) {
-					serverListNumber[i].add(lLCustomer.removeFirst());
-					break;
+			if(minSize != -1) {
+				for(int i = 0; i < serverListNumber.length; i++) {
+					if(serverListNumber[i].size() == minSize) {
+						serverListNumber[i].add(lLCustomer.removeFirst());
+						//TODO erase
+	//					System.out.println("A customer was added to server in line: " + i);
+						//TODO erase
+						break;
+					}
 				}
 			}
 		}
@@ -92,16 +107,17 @@ public class MLMS extends Policy {
 				if(!serverListNumber[i].isEmpty()) {
 						if(!getServerList()[i].isAttending() && serverListNumber[i].getFirst().getArrival() <= getCurrentTime()) {
 							getServerList()[i].setCustomer(serverListNumber[i].removeFirst());
+							verifyIfCustomerIsAttendedBefore(getServerList()[i]);
 							getServerList()[i].getCustomer().setWaitTime(getCurrentTime());
 							getServerList()[i].getCustomer().setFinishedTime(getCurrentTime());
 							if(getServerList()[i].getCustomer().getTimeOfEnd() > getNextEvent()) {
-
 								setNextEvent(getServerList()[i].getCustomer().getTimeOfEnd());
 							}
 						}
 				}
 			}
 		}
+		
 		
 	}
 	
@@ -128,10 +144,15 @@ public class MLMS extends Policy {
 		}
 		
 		else
-			return -1;
-		
-		
-		
+			return -1;		
 	}
+	
+	
+	
+	
 
+	
+	
+	
+	
 }
