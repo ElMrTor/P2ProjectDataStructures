@@ -7,6 +7,15 @@ import java.util.Queue;
 import resources.Customer;
 import resources.Server;
 
+/**
+ * 
+ * @author Hector Montes Martinez
+ * 841-14-4960
+ * 
+ * The super class from where the other policies come from. It holds variables that are useful for the policies with their getters and setters.
+ *
+ */
+
 public abstract class Policy {
 
 	private int currentTime;
@@ -20,6 +29,8 @@ public abstract class Policy {
 	private float averageAttendedCustomer;
 	public LinkedList<Customer>[] serverListNumber;
 	
+	
+	//Runs the current policy simulation.
 	protected void runSim() {
 		while((!pQueue.isEmpty() || currentTime <= nextEvent)) {
 			verifyCompletedTask();
@@ -30,6 +41,7 @@ public abstract class Policy {
 		}
 	}
 	
+	//To be implemented for each policy.
 	public void doLineChange() {}
 	
 	public void verifyCompletedTask() {
@@ -37,21 +49,14 @@ public abstract class Policy {
 			if(s.isAttending() && currentTime == s.getCustomer().getTimeOfEnd()) {
 				attendedCustomers.add(s.getCustomer());
 				s.finishedAttending();
-				System.out.println("Finished Attending Customer");
 			}
 		}
 	}
 	
-	public void verifyServiceStart() {
-		
-	}
+	//To be implemented by each policy.
+	public void verifyServiceStart() {}
 	
-//	public String getValue() {
-//		String str = getPolicyName() + " " + getServers() + ": " + "" + getNextEvent() + " " + String.format("%.2f", getAverageWaitingTime()) + " " + getAverageAttendedCustomer();
-//		return str;
-//	}
-	
-	
+	//Returns the results from the current policy simulation in a string.
 	public String getValue() {
 		if(getServers() == 1)
 			setAverageAttendedCustomer(0);
@@ -59,6 +64,7 @@ public abstract class Policy {
 		return str;
 	}
 	
+	//Calculates the avergae waiting time.
 	public float getAverageWaitingTime() {
 		float vtr = 0;
 		for(Customer c: attendedCustomers) {
@@ -68,10 +74,10 @@ public abstract class Policy {
 		return vtr;
 	}
 	
+	//Calculates the average waiting time of customers attended before other customer who arrived before.
 	public float calculateAverageAttendedPersonBeforeAnother() {
 			
-			float ntr = getAverageAttendedCustomer()/getAttendedCustomerList().size();
-			
+			float ntr = getAverageAttendedCustomer()/getAttendedCustomerList().size();			
 			return ntr;
 		}
 	

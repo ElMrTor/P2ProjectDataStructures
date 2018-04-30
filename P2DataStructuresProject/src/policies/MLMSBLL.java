@@ -5,6 +5,16 @@ import java.util.ArrayList;
 
 import resources.Customer;
 
+/**
+ * 
+ * @author Hector Montes Martinez
+ * 841-14-4960
+ * 
+ * Policy that can have multiple servers and multiple lines. Customers are swapped according to the line lengths so that the waiting lines
+ * are balanced.
+ *
+ */
+
 public class MLMSBLL extends MLMS {
 
 	private int[] sizesOfLines;
@@ -16,7 +26,7 @@ public class MLMSBLL extends MLMS {
 	
 	}
 	
-	
+	//Method that assigns the customers according to the line lengths.
 	@Override
 	public void doLineChange() {
 		super.doLineChange();
@@ -36,6 +46,7 @@ public class MLMSBLL extends MLMS {
 		}		
 	}
 	
+	//Method that swaps the customers from the indicated lines.
 	private void doSwap(int n, int k) {
 		
 		int i = sizesOfLines[n] - sizesOfLines[k];
@@ -49,76 +60,6 @@ public class MLMSBLL extends MLMS {
 			serverListNumber[n].add(serverListNumber[k].removeLast());
 		}
 		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	private LinkedList<Customer> lLCustomer;
-//	
-//	public MLMSBLL(List<Customer> cList, int server) {
-//		serverListNumber = new LinkedList[server];
-//		for(int i = 0; i < serverListNumber.length; i++) {
-//			serverListNumber[i] = new LinkedList<Customer>();
-//		}
-//		
-//		setPolicyName("MLMSBLL");
-//		setQueue(new PriorityQueue<Customer>(cList));
-//		lLCustomer = new LinkedList<Customer>(getQueue());
-//		setQueue(null);
-//		setAttendedCustomerList(new ArrayList<Customer>());
-//		setLineChange(true);
-//		setCurrentTime(0);
-//		setNextEvent(0);
-//		setAverageAttendedCustomer(0);
-//
-//		setServers(server);
-//		setServerList(new Server[getServers()]);
-//		for(int i = 0; i < getServers(); i++) {
-//			getServerList()[i] = new Server();
-//		}
-//		
-//		runSim();
-//
-//		
-//	}
-//	
-//	@Override
-//	public void runSim() {
-//		
-//		while(!areLinesEmpty() || getCurrentTime() <= getNextEvent()) {
-//			verifyCompletedTask();
-//			if(canChangeLine()) {
-//				doLineChange();
-//			}
-//			verifyServiceStart();
-//		}
-//		
-//	}
-//	
-//	@Override
-//	public void verifyCompletedTask() {
-//		
-//	}
-//	
-//	//TODO Implement method
-//	public boolean areLinesEmpty() {
-//		return false;
-//	}
-//
-//	
+	}	
 	
 }

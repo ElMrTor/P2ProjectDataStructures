@@ -9,6 +9,15 @@ import java.util.Queue;
 import resources.Customer;
 import resources.Server;
 
+/**
+ * 
+ * @author Hector Montes Martinez
+ * 841-14-4960
+ * 
+ * Policy that has multiple lines and multiple servers. Each line correspond to each server according to their index.
+ *
+ */
+
 public class MLMS extends Policy {
 	
 	public LinkedList<Customer> lLCustomer;
@@ -34,21 +43,13 @@ public class MLMS extends Policy {
 			getServerList()[i] = new Server();
 		}
 		
-		
-		
-		
-		runSim();
-		
-//		System.out.println("The size of the attended customer list is: " + getAttendedCustomerList().size());
-	
-		for(Customer c: getAttendedCustomerList())
-			System.out.println(c.getWaitTime());
+		runSim();		
 		
 	}
 	
+	//Method that runs the simulation of the policy.
 	@Override
-	protected void runSim() {
-		
+	protected void runSim() {		
 		
 		while(!areLinesEmpty() || getCurrentTime() <= getNextEvent() || !lLCustomer.isEmpty()) {
 			verifyCompletedTask();
@@ -56,30 +57,24 @@ public class MLMS extends Policy {
 				doLineChange();
 			}
 			verifyServiceStart();
-			setCurrentTime(getCurrentTime() + 1);
-			
-			
+			setCurrentTime(getCurrentTime() + 1);			
 		}
 	}
 	
 
 	
+	//Method that sets each according customer to the line with less customers in it as they arrive.
 	@Override
-	public void doLineChange() {
-		
+	public void doLineChange() {		
 	
 		while(!lLCustomer.isEmpty() && lLCustomer.getFirst().getArrival() <= getCurrentTime() ) {
-			//TODO erase
-//			System.out.println("It entered the while loop");
-			//TODO erase
+			
 			int minSize = getMinimunLine();
 			if(minSize != -1) {
 				for(int i = 0; i < serverListNumber.length; i++) {
 					if(serverListNumber[i].size() == minSize) {
 						serverListNumber[i].add(lLCustomer.removeFirst());
-						//TODO erase
-	//					System.out.println("A customer was added to server in line: " + i);
-						//TODO erase
+						
 						break;
 					}
 				}
@@ -88,6 +83,7 @@ public class MLMS extends Policy {
 		
 	}
 	
+	//Method that verifies if all lines are empty.
 	private boolean areLinesEmpty() {
 		for(int i = 0; i < serverListNumber.length; i++) {
 			if(!serverListNumber[i].isEmpty())
@@ -98,7 +94,7 @@ public class MLMS extends Policy {
 	}
 	
 	
-	
+	//Method that verifies if the service of a customer starts or it gives  a customer to a server that was not attennding.
 	@Override
 	public void verifyServiceStart() {
 		
@@ -121,16 +117,8 @@ public class MLMS extends Policy {
 		
 	}
 	
-	private int getMaxNumberOnList() {
-		int ntr = 0;
-		for(int i = 0; i < getServerList().length; i++) {
-			if(ntr < serverListNumber[i].size())
-				ntr = serverListNumber[i].size();
-		}
-		return ntr;
-	}
 	
-	//TODO verify logic
+	//Method that gives us the size of the line that has less customers.
 	private int getMinimunLine(){
 		if(!lLCustomer.isEmpty()) {
 			int[] value = new int[getServerList().length];
@@ -145,14 +133,6 @@ public class MLMS extends Policy {
 		
 		else
 			return -1;		
-	}
-	
-	
-	
-	
-
-	
-	
-	
+	}	
 	
 }

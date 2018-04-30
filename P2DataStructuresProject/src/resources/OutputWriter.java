@@ -9,9 +9,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Hector Montes Martinez
+ * 841-14-4960
+ * 
+ * Class that writes and verifies the files to be used in each policy simulation.
+ *
+ */
+
 public class OutputWriter {
 
-	private static ArrayList<String> correctFileNames;
 	private static ArrayList<Customer> customerList;
 	private static boolean correctFormat;
 	private static String correctOutput = "Number of customers: ";
@@ -19,11 +27,12 @@ public class OutputWriter {
 	
 	public OutputWriter(int[] args){
 		argumentsArr = args;
-		correctFileNames = new ArrayList<String>();
 		customerList = new ArrayList<Customer>();
 		correctFormat = false;
 	}
 	
+	
+	//Method that verifies the file given and decides if it is correct or not and gives the corresponding output to each case.
 	public static void verifyInputFile(String fileName) {
 		try {
 			ArrayList<Integer> list = new ArrayList<Integer>();
@@ -46,7 +55,6 @@ public class OutputWriter {
 						counter = 1;
 						break;
 					}					
-					//verify
 					int current = sc.nextInt();
 					list.add(current);
 					
@@ -56,41 +64,31 @@ public class OutputWriter {
 				 if(counter%2 != 0) 
 					writeIncorrectCase(fileName);
 				
-				//TODOelimate all the prints
-				//Print for testing
+				
 				 else { 
-					System.out.println("File is correct.");
 					correctFormat = true;
-					//Adding the info the a customer list
 					for(int i = 0; i<list.size(); i = i+2) {
 						customerList.add(new Customer(list.get(i),list.get(i+1)));
 					}
 					
 					correctOutput = correctOutput.concat( ""+customerList.size());
 					PolicyManager manager = new PolicyManager(argumentsArr, customerList);
-					//Verify if it works.
 					writeToFileCase(fileName, manager.processData());
-					//Ends testing print
-					correctFileNames.add(fileName);
 					
 					
 				 }
-				 System.out.println(list.toString());
 				 sc.close();
 			}
 		}
-		catch(Exception e) {
-			System.out.println("Error identifying the input file");
-			System.out.println(e);
-			//TODO erase
-			e.printStackTrace();
-
+		catch(Exception e) {			
+			//Catch error
 		}		
 		
 		
 		
 	}
 	
+	//Method that writes to output file the corresponding message if said file is not found.
 	public static void writeNotExistingCase(String fileName) {
 		try {
 			String newOut = changeToOutput(fileName);
@@ -100,20 +98,14 @@ public class OutputWriter {
 			Files.createFile(p);
 			PrintWriter pw = new PrintWriter(newOut);
 			pw.write("Input file not found.");
-			pw.close();
-			
-			//TODO prints
-			System.out.println("El file no existe");
-			//Ends test
+			pw.close();			
 			
 		} catch (Exception e) {
-			System.out.println("Error in static printing class: Not Existing Case");
-			System.out.println(e);
-			//TODO erase
-			e.printStackTrace();
+			System.out.println("Error in static printing class: Not Existing Case");			
 		}
 	}
 	
+	//Method that writes to output file the corresponding message if said file has an incorrect format.
 	public static void writeIncorrectCase(String fileName) {
 		try {
 			String newOut = changeToOutput(fileName);
@@ -123,19 +115,15 @@ public class OutputWriter {
 			Files.createFile(p);
 			PrintWriter pw = new PrintWriter(newOut);
 			pw.write("Input file does not meet the expected format or it is empty");
-			pw.close();
-			
-			//TODO testing print
-			System.out.println("Incorrect information or format.");
+			pw.close();			
 			
 		}
 		catch(Exception e) {
-			System.out.println("Error in static printing class: Incorrect Case");
-			//TODO erase
-			e.printStackTrace();
+			System.out.println("Error in static printing class: Incorrect Case");			
 		}
 	}
 	
+	//Method that writes to output file the corresponding results from the file given.
 	public static void writeToFileCase(String fileName, ArrayList<String> toPrint) {
 		try {
 			String newOut = changeToOutput(fileName);
@@ -153,28 +141,22 @@ public class OutputWriter {
 			pw.close();
 		
 		}
-		catch(Exception e) {
-			//TODO fix the catch exception
-			System.out.println(e);
-			System.out.println("**********Error en el writeToFileCase**************");
-		//TODO erase
-			e.printStackTrace();
-		
+		catch(Exception e) {		
+		//Exception
 		}
 	}
 
+	//Method that changes the filename so it can be written to the correct output folder.
 	private static String  changeToOutput(String inputName) {
 		String str = inputName;
 		str = str.replace("inputFiles/","outputFiles/");
 		str = str.replace(".txt", "_OUT.txt");	
 
 		return str;
-	}
+	}	
 	
-	public ArrayList<String> getFileList(){
-		return correctFileNames;
-	}
 	
+	//Getters 
 	public ArrayList<Customer> getCustomerList(){
 		return customerList;
 	}

@@ -8,6 +8,16 @@ import policies.MLMSBLL;
 import policies.MLMSBWT;
 import policies.SLMS;
 
+/**
+ * 
+ * @author Hector E. Montes Martinez
+ * 841-14-4960
+ *
+ *Class that runs all policies and takes all the results and stores them in an ArrayList to be later printed to the corresponding file.
+ *
+ */
+
+
 public class PolicyManager {
 
 	private int[] arguments;
@@ -22,10 +32,10 @@ public class PolicyManager {
 		cList = list;		
 		toWrite = new ArrayList<String>();
 		toWrite.add("Number of customers: " + list.size());
-//		toWrite = "Number of Customers: " + list.size();
 		
 	}
 	
+	//Method that collects the data from all policies and returns it as an array list.
 	public ArrayList<String> processData() {
 	
 		for(int i = 0; i < arguments.length; i++) {
@@ -48,9 +58,7 @@ public class PolicyManager {
 			toWrite.add(serv.getValue());
 		}
 		
-//		TODO Devolver el string creado con todas las estrategias
 		
-		System.out.println(toWrite);
 		return toWrite;	
 	
 	}

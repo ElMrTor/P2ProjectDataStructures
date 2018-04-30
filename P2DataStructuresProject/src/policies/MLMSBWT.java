@@ -4,6 +4,16 @@ import java.util.ArrayList;
 
 import resources.Customer;
 
+/**
+ * 
+ * @author Hector Montes Martinez
+ *841-14-4960
+ *
+ *Policy that allows multiple servers and multiple lines and customers are assigned a line according to which one has the minimum
+ * time for them to be attended.
+ *
+ */
+
 public class MLMSBWT extends MLMS{
 	
 	private int[] totalTimePerLine;
@@ -14,6 +24,7 @@ public class MLMSBWT extends MLMS{
 		
 	}
 	
+	//Method that assigns the customers according the minimum waiting time of the lines.
 	@Override
 	public void doLineChange() {
 	

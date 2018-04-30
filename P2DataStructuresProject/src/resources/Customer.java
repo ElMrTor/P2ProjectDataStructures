@@ -1,5 +1,14 @@
 package resources;
 
+/**
+ * 
+ * @author Hector Montes Martinez
+ * 841-14-4960
+ * 
+ * CLass that represents a customer and hold its arrival time, requested time, wait time and the time it finished receiving service.
+ *
+ */
+
 public class Customer implements Comparable<Customer> {
 
 	private int timeOfArrival;
@@ -43,12 +52,8 @@ public class Customer implements Comparable<Customer> {
 	
 
 	@Override
-	public int compareTo(Customer otherCustomer) {
-		// TODO Auto-generated method stub
-		//TODO verify method
+	public int compareTo(Customer otherCustomer) {		
 		return Integer.compare(timeOfArrival, otherCustomer.getArrival());
-//		return Integer.compare((int)otherCustomer.getArrival(), (int) timeOfArrival);
-
 	}
 	
 }

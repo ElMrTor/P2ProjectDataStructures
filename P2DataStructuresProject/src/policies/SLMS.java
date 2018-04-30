@@ -6,6 +6,15 @@ import java.util.PriorityQueue;
 import resources.Customer;
 import resources.Server;
 
+/**
+ * 
+ * @author Hector Montes Martinez
+ * 841-14-4960
+ * 
+ * Policy that allows multiple servers but only has one line.
+ *
+ */
+
 public class SLMS {
 
 	private int currentTime;
@@ -31,31 +40,21 @@ public class SLMS {
 		}
 		
 		runSim();
-		printResults();
 	}
 	
+	//Method that runs the simulation of the current policy.
 	private void runSim() {
 		
-		//TODO class is incomplete needs to be fully implemented.
 		while((!pQueue.isEmpty() || currentTime <= nextEvent) && currentTime < 1000) {
 			
 			verifyCompletedTask();
 			verifyServiceStart();
 			
 			currentTime++;
-		}
-		
-		
-	}
+		}		
+	}	
 	
-	//TODO Unneeded method
-	public void printList() {
-
-		while(!pQueue.isEmpty())
-			System.out.println("Arrival Time: " + pQueue.peek().getArrival() + " Requested Time: " + pQueue.remove().getRequest());
-
-	}
-	
+	//Method that verifies if the servers completed attending the custumers.
 	private void verifyCompletedTask() {
 		for(Server s: serverList) {
 			if(s.isAttending() && currentTime == s.getCustomer().getTimeOfEnd()) {
@@ -65,6 +64,7 @@ public class SLMS {
 		}
 	}
 	
+	//Method that makes the customers start taking their service according to their arrival time.
 	private void verifyServiceStart() {
 		
 		for(Server s: serverList) {
@@ -80,26 +80,15 @@ public class SLMS {
 		}		
 	}
 	
-	private void printResults() {
-		System.out.println("Arrival Request End Wait");
-		for(Customer c : attendedCustomers) {
-			
-			System.out.println(c.getArrival() + " " + c.getRequest() + " " + c.getTimeOfEnd() + " " + c.getWaitTime());
-		}
-//		attendedCustomers = null;
-//		pQueue = null;
-//		attendedCustomers = new ArrayList<Customer>();
-//		pQueue = new PriorityQueue<Customer>();
-		
-	}
 	
-//	TODO Metodo que me va a dar el string de cada estrategia con su servers para juntarse al ultimo file 
-	// Verificar la m para ver si se le da un procedimiento que de 0, pero en este caso siempre da 0.
+	
+	//Method that returns the results from the current policy in a string.
 	public String getValues() {
 		String str = "SLMS " + numberOfServers + ": " + nextEvent + " " + String.format("%.2f", getAverageWaitingTime()) + " 0.00"   ;
 		return str;
 	}
 	
+	//Method that calculates the average waiting time of the customers.
 	private float getAverageWaitingTime() {		
 		float vtr = 0;		
 		for(Customer c: attendedCustomers) {
